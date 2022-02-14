@@ -81,6 +81,6 @@ sequential file to maintain the data.
 
 DSAL_Assign_24: Company maintains employee information as employee ID, name, designation and salary. Allow user to add, delete information of any employee. Display information
 of particular employee. If employee does not exist an appriopriate message is displayed. If it is, then the system displays the employee details. Use index sequential file to
-maintain the Data.
+maintain the data.
                
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
