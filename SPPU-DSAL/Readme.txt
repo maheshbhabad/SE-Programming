@@ -20,16 +20,8 @@ DSAL_Assign_4: To create ADT that implement the 'set' concept.
                
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-DSAL_Assign_5: To create ADT that implement the 'set' concept.
-              a. Add (new element) - Place a vlaue into the set.
-              b. Remove (delete element) - Remove the value.
-              c. Containe (search element) - Return True if element is in collection.
-              d. Size() - Return number of values in collection.
-              e. Iterator() - Return an iterator used to loop over collection
-              f. Intersection of two sets.
-              g. Union of two sets.
-              h. Difference between two sets.
-              i. Subsets.
+DSAL_Assign_5: A book consists of chapters, chapters consists of sections and sections consist of subsections. Construct a tree and print the nodes. Find the time and space
+requirements of your method 
                
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
