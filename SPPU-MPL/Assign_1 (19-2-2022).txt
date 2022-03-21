@@ -1,0 +1,46 @@
+section .data
+msg db 10,'MPL first assignment for Accepting array elements:'
+msglen equ $-msg
+msg1 db 10,'Array elements are',10
+msglen1 equ $-msg1
+
+section .bss
+array resq 5
+counter resb 1
+
+section .text
+global _start
+_start:
+    MOV Rax, 1
+    MOV Rdi, 1
+    MOV rsi,msg
+    MOV Rdx, msglen
+syscall
+
+MOV Rax, 1
+MOV Rdi, 1
+mov rsi,msg1
+MOV Rdx, msglen1
+syscall
+
+MOV byte[counter],01
+MOV rbp,array
+
+loop:
+    MOV Rax, 0
+    MOV Rdi, 0
+    MOV Rsi, rbp
+    MOV Rdx, 17
+syscall
+
+MOV Rax, 1
+MOV Rdi, 1
+mov rsi,rbp
+MOV Rdx, 17
+syscall
+
+dec byte[counter]
+JNZ loop
+
+MOV rax,60
+syscall
