@@ -9,6 +9,8 @@ section .data
     
     msg3 db 10,10, "The Largest number in the array is : ",10
     msg3_len equ $ - msg3
+    
+    msg4 db " ",1
 
 section .bss
     counter resb 1
@@ -77,5 +79,6 @@ skip1:  mov [rdi],al ;store ascii code in result variable
         jnz up1 ;if not zero jump to repeat
         
         write result , 4
+        write msg4,1
         
         ret
