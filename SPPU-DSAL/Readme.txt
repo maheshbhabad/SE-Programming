@@ -31,9 +31,8 @@ the entire tree.
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 DSAL_Assign_11: A Dictionary stores keywords and its meanings. Provide facility for adding new keywords, deleting keywords, updation values of any entry. Provide
-facility to
-display whole data stored in ascending/decending order. Also find how many maximum comparisons may require for finding any keywords. Use Binary Search Tree for
-implementation.
+facility to display whole data stored in ascending/decending order. Also find how many maximum comparisons may require for finding any keywords. Use Binary Search Tree
+for implementation.
                
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
