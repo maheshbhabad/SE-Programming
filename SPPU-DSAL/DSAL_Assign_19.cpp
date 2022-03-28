@@ -5,7 +5,7 @@ Subject: DSAL Lab
 Assignment: #19
 */
 
-include<iostream>
+#include<iostream>
 #include<string.h>
 using namespace std;
 class dict
