@@ -1,88 +1,80 @@
 section .data
-    array db 11h,59h,33h,22h,64h 
+msg1 db "Count of Positive numbers:"
+len1 equ $-msg1
+msg2 db "Count of negative numbers:"
+len2 equ $-msg2
+array db 10,12,-21,-12,-19,-34,41
 
-    msg1 db 10,"ALP to find the largest number in an array",10
-    msg1_len equ $ - msg1
-    
-    msg2 db 10,"The Array contains the elements : ",10
-    msg2_len equ $ - msg2
-    
-    msg3 db 10,10, "The Largest number in the array is : ",10
-    msg3_len equ $ - msg3
-    
-    msg4 db " ",1
-
-section .bss
-    counter resb 1
-    result resb 4
-    
-%macro write 2
-    mov rax,1
-    mov rdi,1
-    mov rsi,%1
-    mov rdx,%2
-    syscall
+%macro print 2
+mov rax,01
+mov rdi,01
+mov rsi,%1
+mov rdx,%2
+syscall
 %endmacro
 
+
+section .bss
+count resb 2
+pcount resb 2
+ncount resb 2
+totalcount resb 2
+
 section .text
-    global _start
-_start: 
-        write msg1 , msg1_len
-        write msg2 , msg2_len
-        
-        mov byte[counter],05
-        mov rsi,array
-        
-next:   mov al,[rsi]
-        push rsi
-        call disp
-        pop rsi
-        inc rsi
-        dec byte[counter]
-        jnz next
+global _start
+_start:
 
-        write msg3 , msg3_len
-        
-        mov byte[counter],05
-        mov rsi, array
-        mov al, 0                       ; al is an 8 bit register , al stores max   
-        
-repeat: cmp al,[rsi]                    ;cmp opr1 , opr2  : opr1 - opr2
-        jg skip
-        mov al,[rsi]
-        
-skip:   inc rsi
-        dec byte[counter]
-        Jnz repeat
-    
-        call disp
+mov byte[count],07
+mov byte[pcount],00
+mov byte[ncount],00
 
-        mov rax,60
-        mov rdi,1
-        syscall
+mov rsi,array
+
+Up:
+        mov al,00
+        add al,[rsi]
+        js neg
+        inc byte[pcount]
+        jmp Down
+        neg:
+        inc byte[ncount]
+
+Down:
+        add rsi,01
+        dec byte[count]
+        jnz Up
+
+mov bl,[pcount]
+mov dl,[ncount]
+b1:
+
+print msg1,len1
+mov bh,[pcount]
+call disp
+
+
+
+print msg2,len2
+mov bh,[ncount]
+call disp
+
+mov rax,60
+mov rdi,00
+syscall
 
 disp:
-        mov bl,al                       ;store number in bl
-        mov rdi, result                 ;point rdi to result variable
-        mov cx,02                       ;load count of rotation in cl
-        
-up1:
-        rol bl,04                       ;rotate number left by four bits
-        mov al,bl                       ;move lower byte in dl
-        and al,0fh                      ;get only LSB
-        cmp al,09h                      ;compare with 39h
-        jg add_37                       ;if grater than 39h skip add 37
-        add al,30h
-        jmp skip1                       ;else add 30
-        
-add_37: add al,37h
+mov byte[count],02
 
-skip1:  mov [rdi],al                    ;store ascii code in result variable
-        inc rdi                         ;point to next byte
-        dec cx                          ;decrement the count of digits to display
-        jnz up1                         ;if not zero jump to repeat
-        
-        write result , 4
-        write msg4,1
-        
+loop:
+        rol bh,04
+        mov al,bh
+        AND al,0FH
+        cmp al,09
+        jbe l1
+        add al,07h
+        l1:add al,30h
+        mov[totalcount],al
+        print totalcount,02
+        dec byte[count]
+        jnz loop
 ret
