@@ -29,7 +29,7 @@ int findOptimalCost(int freq[], int i, int j, int level)
         // recursively find the optimal cost of the right subtree
         int rightOptimalCost = findOptimalCost(freq, k + 1, j, level + 1);
 
-        // current node's cost is `freq[k]×level`
+        // current node's cost is `freq[k]Ã—level`
         int cost = freq[k] * level + leftOptimalCost + rightOptimalCost;
 
         // update the optimal cost
