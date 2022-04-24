@@ -25,19 +25,16 @@ MPL_Assign_5: Write an x86/64 ALP to count number of positive and negative numbe
 
 MPL_Assign_6: Write X86/64 ALP to perform non-overlapped block transfer without string specific
 instructions. Block containing data can be defined in the data segment.
-
                
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 MPL_Assign_7: Write X86/64 ALP to perform overlapped block transfer with string specific instructions
 Block containing data can be defined in the data segment.
-
                
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 MPL_Assign_8: Write X86/64 ALP to perform multiplication of two 8-bit hexadecimal numbers. Use
 successive addition and add and shift method. (use of 64-bit registers is expected).
-
                
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
