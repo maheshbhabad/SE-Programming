@@ -1,0 +1,93 @@
+%macro dispmsg 2
+mov rax,1
+mov rdi, 1
+mov rsi, %1
+mov rdx, %2
+syscall
+%endmacro
+
+
+%macro exitprog 0
+mov rax, 60
+mov edi,0
+syscall
+%endmacro
+
+
+section .data
+nwline db 10
+m0 db 10,10,"Program to calculate factorial of a given number.",10,10
+l0 equ $-m0
+
+
+m4 db 10,"The factorial is : "
+l4 equ $-m4
+factorial  dq 1
+no1 db 03h
+
+section .bss
+
+output resb 2
+
+
+section .text
+global _start
+_start :
+
+dispmsg m0,l0
+
+
+
+mov rcx,[no1]
+
+call facto
+mov rax,00
+
+
+
+dispmsg m4,l4
+mov rax,qword[factorial]
+mov bx,ax
+call disphx16   	  ; displays a 8 digit hex number  in rax
+
+
+exitprog
+
+
+
+facto:
+push rcx
+cmp rcx,01
+jne ahead
+jmp exit2
+
+ahead:dec rcx
+call facto
+exit2:pop rcx
+mov rax,rcx
+mul qword[factorial]
+mov qword[factorial],rax
+ret
+
+
+
+
+
+disphx16:   ; displays a 16 digit hex number passed in rax
+mov rdi,output
+             mov rcx,02
+        dispup1:
+                 rol bl,4
+                 mov dl,bl
+                 and dl,0fh
+                 add dl,30h
+                 cmp dl,39h
+                 jbe dispskip1
+                 add dl,07h
+       dispskip1: 
+                  mov [rdi],dl
+                  inc rdi
+                  loop dispup1
+                  dispmsg output,2
+             ret 
+ret
