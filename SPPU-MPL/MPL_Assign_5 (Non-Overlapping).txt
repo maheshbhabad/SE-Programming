@@ -1,0 +1,83 @@
+%macro print 2
+ mov rax,1
+ mov rdi,1
+ mov rsi,%1
+ mov rdx,%2
+ syscall
+%endmacro
+ 
+ section .data
+ m1 db 10,"source block",10,13
+m1len equ $-m1
+
+m2 db 10,"destination block after transfer:",10,13
+m2len equ $-m2
+
+space db " "
+spacelen equ $-space
+
+srcblk db 10h,20h,30h,40h,50h
+
+count equ 05h
+
+section .bss
+ans resb 2
+dstblk resb 5
+
+section .text
+global _start
+_start:
+print m1,m1len
+mov rsi,srcblk
+call disp_block
+
+print m2,m2len
+
+mov rsi,srcblk
+mov rdi,dstblk
+mov rcx,05
+
+s1: mov al,[rsi]
+mov [rdi],al
+inc rsi
+inc rdi
+loop s1
+
+mov rsi,dstblk
+call disp_block
+
+mov rax,60
+xor rdi,rdi
+syscall
+
+disp_block:
+mov rbp,count
+
+back: mov al ,[rsi]
+push rsi
+call disp_8
+print space,1
+pop rsi
+inc rsi
+dec rbp
+jnz back
+ret
+
+disp_8:
+mov rdi,ans
+mov rcx,02
+    
+    dispup1:
+       rol al,4
+       mov dl,al
+       and dl,0fh
+       add dl,30h
+       cmp dl,39h
+       jbe dispskip1
+       add dl,07h
+    dispskip1:
+         mov [rdi],dl
+         inc rdi
+         loop dispup1
+         print ans,2
+      ret
