@@ -1,0 +1,75 @@
+%macro dispmsg 2 
+ mov rax,1
+ mov rdi,1
+ mov rsi,%1
+ mov rdx,%2
+ syscall
+ %endmacro
+ 
+ %macro exitprog 0
+ 
+ mov rax,60
+ mov rdx,0
+ syscall
+ %endmacro
+ 
+ section .data
+  newline db 10
+  m0 db 10,10,"program to multiply using successive addition method",10
+  l0 equ $-m0
+  
+  m4 db 10,"The multiplication is:"
+    l4 equ $-m4
+    
+    mcand db 06
+    mplier db 02
+    
+    section .bss
+    
+    output resb 1 
+    section .text
+    global _start
+    _start:
+      dispmsg m0,l0
+      
+     dispmsg m4,l4
+     
+     mov rax,0
+     cmp qword[mplier],0
+with0:
+jz ll5
+  
+ll1:
+   add rax,qword[mcand]
+     dec qword[mplier]
+     jnz ll1
+     
+     
+ll5:
+   mov rbx,rax 
+   call disphx16
+   exitprog 
+   
+   disphx16:
+   
+   mov rbx,rax
+   mov cx,0204h
+   
+   
+   ll6 :
+   rol bl,cl
+   mov rdx,rbx
+   and rdx,0fh
+   add rdx,30h
+   cmp rdx,039h
+   jbe skip4
+   add rdx,7
+   skip4:
+   mov byte[output],dl
+bytes:
+    push rcx
+    dispmsg output,1
+    pop rcx 
+    dec ch
+    jnz ll6
+    ret
