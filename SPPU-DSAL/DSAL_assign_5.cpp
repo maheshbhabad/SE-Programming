@@ -152,7 +152,7 @@ void Gll::insertss()
         temp=head;
         if(temp->flag==0)
         {
-            cout<<"\nThere are no chapters on in book: ";
+            cout<<"\nThere are no chapters in the book: ";
         }
         else
         {
