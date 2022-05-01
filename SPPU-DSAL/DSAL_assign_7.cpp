@@ -140,36 +140,6 @@ public:
             cout<<ptr->d;
         }
     }
-
-    void infix()
-    {
-        inOrder(peek());
-    }
-
-    void inOrder(Ntree *ptr)
-    {
-        if (ptr != NULL)
-        {
-            inOrder(ptr->l);
-            cout<<ptr->d;
-            inOrder(ptr->r);
-        }
-    }
-
-    void prefix()
-    {
-        preOrder(peek());
-    }
-
-    void preOrder(Ntree *ptr)
-    {
-        if(ptr != NULL)
-        {
-            cout<<ptr->d;
-            preOrder(ptr->l);
-            preOrder(ptr->r);
-        }
-    }
 };
 
 int main()
