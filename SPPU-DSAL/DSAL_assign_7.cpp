@@ -1,10 +1,3 @@
-/*
-Name: Sahil S. Naik
-PRN: S20111006
-Subject: DSAL Lab
-Assignment: #7
-*/
-
 #include<iostream>
 #include<string>
 #include<stack>
