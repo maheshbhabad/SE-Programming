@@ -1,10 +1,3 @@
-/*
-Name: Sahil S. Naik
-PRN: S20111006
-Subject: DSAL Lab
-Assignment: #18
-*/
-
 #include <iostream>
 #include <climits>
 using namespace std;
