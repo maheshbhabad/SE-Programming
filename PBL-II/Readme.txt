@@ -1,1 +1,1 @@
-Bill split - cashier software
+Bill splitting system.
