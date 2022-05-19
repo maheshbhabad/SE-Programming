@@ -1,181 +1,220 @@
-#include <iostream>
+#include<iostream>
 #include<string>
 using namespace std;
-class dictionary;
-class node
+
+class NODE
 {
-    string word,meaning;
-    node *left,*right;
 public:
-    friend class dictionary;
-    node()
+    string WORD;
+    string MEANING;
+
+    NODE *left, *right;
+
+    NODE()
     {
-        left=NULL;
-        right=NULL;
+        left = NULL;
+        right = NULL;
     }
-    node(string word, string meaning)
+
+    NODE(string WORD, string MEANING)
     {
-        this->word=word;
-        this->meaning=meaning;
+        this->WORD=WORD;
+        this->MEANING=MEANING;
         left=NULL;
         right=NULL;
     }
 };
 
-class dictionary
+class Dict
 {
-    node *root;
+    NODE *root;
 public:
-    dictionary()
+    Dict()
     {
-        root=NULL;
+        root = NULL;
     }
-    void create();
-    void inorder_rec(node *rnode);
-    void postorder_rec(node *rnode);
-    void inorder()
+
+    void Create_Node();
+    bool Insert_Data(string word, string meaning);
+    void Print_Data_A(NODE *P_nodes);
+    void Print_Data_D(NODE *P_nodes);
+    void Print()
     {
-        inorder_rec(root);
+        string how;
+        cout<<"\nA=Ascending\nD=Descending\nEnter how: ";
+        cin>>how;
+        if(how=="A" || how=="a")
+        {
+            cout<<"\nEntered elements are: "<<endl;
+            Print_Data_A(root);
+        }
+        else if(how=="D" || how=="d")
+        {
+            cout<<"\nEntered elements are: "<<endl;
+            Print_Data_D(root);
+        }
+        else
+        {
+            cout<<"\nInvalid Choice!";
+        }
     }
-    void postorder();
 
-    bool insert(string word,string meaning);
-    int search(string key);
-
+    int Search(string word);
 };
 
-int dictionary::search(string key)
+void Dict::Create_Node()
 {
-    node *tmp=root;
-    int count;
-    if(tmp==NULL)
+    int number;
+    string key, meant;
+    cout<<"\nHow many elements to insert: ";
+    cin>>number;
+    for(int i=0;i<number;i++)
+    {
+        cout<<"\nEnter Key: ";
+        cin>>key;
+        cout<<"Enter meaning: ";
+        cin>>meant;
+        Insert_Data(key,meant);
+    }
+}
+
+bool Dict::Insert_Data(string word, string meaning)
+{
+    NODE *pointer = new NODE(word, meaning);
+    if(root==NULL)
+    {
+        root = pointer;
+        return true;
+    }
+
+    NODE *temp1 = root;
+    NODE *temp2 = root;
+    while(temp1!=NULL)
+    {
+        if(word>temp1->WORD)
+        {
+            temp2=temp1;
+            temp1=temp1->right;
+        }
+        else if(word<temp1->WORD)
+        {
+            temp2=temp1;
+            temp1=temp1->left;
+        }
+        else
+        {
+            cout<<"\nKey already Exist!";
+            return false;
+        }
+    }
+    if(word>temp2->WORD)
+    {
+        temp2->right=pointer;
+        return true;
+    }
+    else
+    {
+        temp2->left=pointer;
+        return true;
+    }
+}
+
+void Dict::Print_Data_A(NODE *P_nodes)
+{
+    if(P_nodes)
+    {
+        Print_Data_A(P_nodes->left);
+        cout<<P_nodes->WORD<<" : "<<P_nodes->MEANING<<endl;
+        Print_Data_A(P_nodes->right);
+    }
+}
+
+void Dict::Print_Data_D(NODE *P_nodes)
+{
+    if(P_nodes)
+    {
+        Print_Data_D(P_nodes->right);
+        cout<<P_nodes->WORD<<" : "<<P_nodes->MEANING<<endl;
+        Print_Data_D(P_nodes->left);
+    }
+}
+
+int Dict::Search(string key)
+{
+    NODE *temp = root;
+    int cnt;
+    if(temp==NULL)
     {
         return -1;
     }
-    if(root->word==key)
-    return 1;
-    while(tmp!=NULL)
+    if(root->WORD==key)
     {
-        if((tmp->word)>key)
+        return 1;
+    }
+    while(temp!=NULL)
+    {
+        if((temp->WORD)>key)
         {
-            tmp=tmp->left;
-            count++;
+            temp=temp->left;
+            cnt++;
         }
-        else if((tmp->word)<key)
+        else if((temp->WORD)<key)
         {
-            tmp=tmp->right;
-            count++;
+            temp=temp->right;
+            cnt++;
         }
-        else if(tmp->word==key)
+        else if((temp->WORD)==key)
         {
-            return ++count;
+            return ++cnt;
         }
     }
     return -1;
 }
+int main()
+{
+    string key;
+    string meant;
+    string srch;
+    string del;
+    int chc;
+    int exit=0;
 
-void dictionary::postorder()
-{
-    postorder_rec(root);
-}
-
-void dictionary::postorder_rec(node *rnode)
-{
-    if(rnode)
+    Dict DN;
+    while(exit!=1)
     {
-        postorder_rec(rnode->right);
-        cout<<" "<<rnode->word<<" : "<<rnode->meaning<<endl;
-        postorder_rec(rnode->left);
-    }
-}
-void dictionary::create()
-{
-    int n;
-    string wordI,meaningI;
-    cout<<"\nHow many words to insert?:\n";
-    cin>>n;
-    for(int i=0;i<n;i++)
-    {
-        cout<<"\nEnter Word: ";
-        cin>>wordI;
-        cout<<"\nEnter Meaning: ";
-        cin>>meaningI;
-        insert(wordI,meaningI);
-    }
-}
-
-void dictionary::inorder_rec(node *rnode)
-{
-    if(rnode)
-    {
-        inorder_rec(rnode->left);
-        cout<<" "<<rnode->word<<" : "<<rnode->meaning<<endl;
-        inorder_rec(rnode->right);
-    }
-}
-
-bool dictionary::insert(string word, string meaning)
-{
-    node *p=new node(word, meaning);
-    if(root==NULL)
-    {
-        root=p;
-        return true;
-    }
-    node *cur=root;
-    node *par=root;
-    while(cur!=NULL) //traversal
-    {
-        if(word>cur->word)
+        cout<<"\n1 = Insert\t2 = Display\n3 = Search\t4 = Exit\nEnter Choice: ";
+        cin>>chc;
+        if(chc == 1)
         {
-            par=cur;
-            cur=cur->right;
+            DN.Create_Node();
         }
-        else if(word<cur->word)
+        else if(chc == 2)
         {
-            par=cur;
-            cur=cur->left;
+            DN.Print();
+        }
+        else if(chc == 3)
+        {
+            cout<<"Enter word to search: ";
+            cin>>srch;
+            int cmp = DN.Search(srch);
+            if(cmp==-1)
+            {
+                cout<<"\nNo word found!"<<endl;
+            }
+            else
+            {
+                cout<<"\nWord found in "<<cmp<<" comparisons."<<endl;
+            }
+        }
+        else if(chc == 4)
+        {
+            cout<<"\nExiting...\n";
+            exit++;
         }
         else
         {
-            cout<<"\nWord is already in the dictionary.";
-            return false;
+            cout<<"\nInvalid Choice!";
         }
-    }
-    if(word>par->word) //insertion of node
-    {
-        par->right=p;
-        return true;
-    }
-    else
-    {
-    par->left=p;
-
-    return true;
-    }
-}
-
-int main()
-{
-    string word;
-    dictionary months;
-    months.create();
-    cout<<"Ascending order:\n";
-    months.inorder();
-
-    cout<<"\nDescending order:\n";
-    months.postorder();
-
-    cout<<"\nEnter word to search: ";
-    cin>>word;
-    int comparisons=months.search(word);
-    if(comparisons==-1)
-    {
-        cout<<"\nNot found word!";
-    }
-    else
-    {
-        cout<<"\n "<<word<<" found in "<<comparisons<<" comparisons.\n";
     }
     return 0;
 }
