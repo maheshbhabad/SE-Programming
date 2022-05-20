@@ -175,7 +175,6 @@ int main()
     string key;
     string meant;
     string srch;
-    string del;
     int chc;
     int exit=0;
 
