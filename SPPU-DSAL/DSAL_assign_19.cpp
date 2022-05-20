@@ -15,7 +15,6 @@ struct AVLnode
 
 class AVLtree
 {
-    
     public:
         AVLnode *root;
         AVLtree()
