@@ -224,16 +224,9 @@ int main()
     int iCh;
     AVLtree a;
     AVLnode *curr=NULL;
-    char cWd[SIZE],cMean[MAX];
-    cout<<"\n--------------------------------------";
-    cout<<"\n\tAVL TREE IMPLEMENTATION";
-    cout<<"\n--------------------------------------";   
+    char cWd[SIZE],cMean[MAX]; 
     do
-    {   cout<<"\n--------------------------------";
-        cout<<"\n\t\tMENU";
-        cout<<"\n--------------------------------";
-        cout<<"\n1.Insert\n2.Inorder\n3.Delete\n4.Exit";
-        cout<<"\n--------------------------------";
+    {   cout<<"\n1.Insert\n2.Inorder\n3.Delete\n4.Exit";
         cout<<"\nEnter your choice :";
         cin>>iCh;
         
@@ -241,14 +234,6 @@ int main()
         {
             case 1: cout<<"\nEnter Word : ";
                 cin>>cWd;
-                /*for(int i;cMean[i]!='\0';i++)
-                {   
-                    if(cMean[i]>='A'&& cMean[i]<='Z')
-                    {
-                        cMean[i]=cMean[i]+32;
-                    }
-                }
-                cout<<cMean;*/
                 cout<<"\nEnter Meaning : ";
                 cin.ignore();
                 cin.getline(cMean,MAX);
