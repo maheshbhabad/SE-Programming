@@ -1,5 +1,5 @@
 Free code for everyone.
-Problem statements are-
+Problem statements are:
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 DSAL_Assign_1: Consider telephone book database of N clients. Make use of hash table implementation to quickly loop up client's telephone number. Make use of two
